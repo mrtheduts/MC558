@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<!-- saved from url=(0053)https://susy.ic.unicamp.br:9999/mc558ab/01/enunc.html -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Laboratório 02</title>
+
+
+
+
+  
+  
+
+
+
+<style type="text/css">
+
+
+p {
+	margin-left: 1cm;
+	margin-right: 1cm;
+	}
+table.matriz {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+   border-collapse: collapse;
+   
+}
+
+td.matriz{
+font-size: 25px;
+   border-width: 1px;
+	border-spacing: 0;
+	border-style: solid;
+	border-color: black;
+	padding:5px;
+}
+
+
+td.cabecalho{
+font-size: 15px;
+text-align:center;
+   border-width: 2px;
+	border-spacing: 1;
+	border-style: solid;
+	border-color: black;
+	padding:5px;
+}
+
+td.invisivel{
+	border-width: 0px;
+	border-spacing: 0;
+	border-style: solid;
+	border-color: black;
+	padding:5px;
+}
+
+.cabecalho1{
+font-size: 20px;
+}
+
+.cabecalho2{
+font-size: 20px;
+}
+
+
+.header1{
+font-size: 15px;
+}
+
+.header2{
+font-size: 15px;
+}
+
+.rotation {
+	width: 30px;
+}
+.rotation > div{
+
+	display: block;
+	font-weight: bolder;
+	width: 10px !important;
+	margin-top: 100px;
+
+	/* Safari */
+	-webkit-transform: rotate(-90deg);
+
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+
+	/* IE */
+	-ms-transform: rotate(-90deg);
+
+	/* Opera */
+	-o-transform: rotate(-90deg);
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+td.impossible{
+
+background-color:EEE0E0;
+}
+
+
+
+</style><style>
+.vimvixen-console-frame {
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2147483647;
+  border: none;
+  background-color: unset;
+  pointer-events:none;
+}
+
+.vimvixen-hint {
+  background-color: yellow;
+  border: 1px solid gold;
+  font-weight: bold;
+  position: absolute;
+  text-transform: uppercase;
+  z-index: 2147483647;
+  font-size: 12px;
+  color: black;
+}
+</style></head><body text="#000000" bgcolor="#e0e0e0">
+<h2>Instituto de Computação da UNICAMP</h2>
+
+<h3>MC558: Projeto e análise de algoritmos II<br>
+</h3>
+
+<h4>Segundo Semestre de 2019 - Turma A<br>
+</h4>
+
+<h3>Laboratório Nº 02 - Puzzle <br>
+</h3>
+<p>Prazo de entrega: <strong>19/11/2019 às 23:59:59</strong></p>
+
+
+<table>
+  <tbody>
+    <tr>
+      <td><i>Docente:</i></td>
+      <td><i>C. N. Campos</i></td>
+    </tr>
+    <tr>
+      <td><i>Monitor:</i></td>
+      <td><i>Léo Vieira Peres<br>
+</i></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<hr>
+
+<h3>Contexto:</h3>
+
+<center>
+<figure>
+<img style="width: 600px;" alt="GLaDOS" src="enunc_arquivos/glados.jpg"><br>
+<figcaption><i>"The Enrichment Center regrets to inform you that this next test is impossible."</i></figcaption>
+</figure>
+</center>
+
+<p> Você, como o mais novo cientista maluco da Aperture Laboratories,
+foi encarregado por GLaDOS de medir o nível de dificuldade dos puzzles
+do recém-inaugurado Aperture Science Computer Aided Enrichment Center.
+O objetivo do Enrichment Center é prover um ambiente seguro e lúdico no
+qual cobaias possam testar a invenção revolucionária do laboratório: o
+Hand Held Portal Device (HHPD). A área de teste pode ser descrita como
+um grafo conexo. Para passar de uma área <span style="font-style: italic; color: red;">x</span> para uma área <span style="font-style: italic; color: red;">y</span>, e vice-versa, uma cobaia deve resolver um puzzle de dificuldade<span style="font-style: italic;"> <span style="color: red;">w(x,y)</span></span>
+com a ajuda do HHPD. A figura a seguir ilustra uma área de testes com três
+áreas e três puzzles. De A, uma cobaia pode resolver um puzzle de
+dificuldade 9 e ir para B ou resolver um puzzle de dificuldade 13 e ir
+para C.</p>
+
+<center>
+<img style="width: 180px; height: 90px;" alt="Grafo" src="enunc_arquivos/ex.png"><br>
+</center>
+
+<p> O objetivo das cobaias é sair de sua área inicial <span style="font-style: italic;"><span style="color: red;">s</span> </span>e chegar a outra área <span style="font-style: italic; color: red;">t</span>,
+onde serão recompensadas pela sua participação com bolo e
+aconselhamento psiquiátrico. Como níveis de dificuldades maiores implicam em maior risco de
+neurointoxicação, as cobaias tentarão percorrer o grafo de forma a
+evitar puzzles mais difíceis, isto é, dentre todos os caminhos de <span style="font-style: italic;"><span style="color: red;">s</span></span> a <span style="font-style: italic; color: red;">t</span>, escolherão aquele que minimiza o puzzle de dificuldade máxima no
+caminho. Sua tarefa é determinar a dificuldade deste puzzle.<br>
+ </p>
+
+<p> No exemplo acima, uma cobaia em A pode chegar em C por dois
+caminhos distintos: A-&gt;C e A-&gt;B-&gt;C. O custo de uma aresta
+máxima no caminho A-&gt;C é 13. No caminho A-&gt;B-&gt;C, o custo
+máximo é max{9, 8} = 9. Logo, a menor dificuldade máxima que uma cobaia
+enfrentará será min{13, 9} = 9, pois ela evitará o caminho A-&gt;C. </p>
+
+<h3>Entrada:</h3>
+
+<p> A primeira linha da entrada contém dois inteiros <span style="font-style: italic; color: red;">n</span> e <span style="font-style: italic; color: red;">m</span>, indicando, respectivamente, o número de áreas e o número de ligações entre estas áreas. Em seguida, haverá <span style="font-style: italic; color: red;">m</span> linhas com três inteiros <span style="font-style: italic; color: red;">x</span>, <span style="font-style: italic; color: red;">y</span> e <span style="font-style: italic; color: red;">w(x,y)</span>, indicando que uma cobaia pode transitar entre as áreas <span style="color: red; font-style: italic;">x</span> e <span style="font-style: italic; color: red;">y</span>, se resolver um puzzle de dificultade <span style="font-style: italic; color: red;">w(x,y)</span>. As áreas estão numeradas de<span style="color: red;"> 0 a </span><span style="font-style: italic; color: red;">n</span><span style="color: red;">-1</span>. A próxima linha contém um inteiro <span style="font-style: italic; color: red;">k</span>. As próximas <span style="font-style: italic; color: red;">k</span> linhas contêm um par de áreas <span style="font-style: italic;"><span style="color: red;">s</span></span>, <span style="font-style: italic; color: red;">t</span>,&nbsp; para os quais a cobaia deve determinar a menor dificuldade máxima de um puzzle em um caminho de <span style="font-style: italic;"><span style="color: red;">s</span></span> a <span style="font-style: italic; color: red;">t</span>. A entrada deve ser lida da entrada padrão.</p>
+
+
+<h3>Saída:</h3>
+
+<p>Para cada um dos <span style="font-style: italic; color: red;">k</span> pares de vértices <span style="font-style: italic;"><span style="color: red;">s</span> </span>e<span style="font-style: italic; color: red;"> t</span>, imprima uma linha com a menor dificuldade máxima que uma cobaia enfrentará para ir de <span style="font-style: italic;"><span style="color: red;">s</span></span> a <span style="font-style: italic; color: red;">t</span>. A saída deve ser escrita na saída padrão.</p>
+
+<h3>Restrições</h3>
+<ul>
+	<li>1 ≤ <span style="font-style: italic; color: red;">n</span> ≤ 500</li>
+	<li>1 ≤ <span style="font-style: italic; color: red;">m</span>  ≤ (<span style="font-style: italic; color: red;">n</span>*(<span style="font-style: italic; color: red;">n</span>-1))/2</li>
+	<li>1 ≤&nbsp; <span style="font-style: italic; color: red;">w(x,y) </span>≤ 1000000&nbsp;<br>
+</li>
+	<li>1 ≤ <span style="font-style: italic; color: red;">k</span> ≤ 50</li>
+</ul>
+
+<p><strong>Exemplo de execução1: </strong>
+</p>
+<table hspace="30" border="0">
+  <tbody>
+    <tr><td><tt><font color="BLUE">4 4<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 1 6<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 2 1<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">1 3 2<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">2 3 2<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">2<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 1<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 3<br></font></tt></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">2</span></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">2</span></td></tr>
+  </tbody>
+</table>
+<p><strong>Exemplo de execução2: </strong>
+</p>
+<table hspace="30" border="0">
+  <tbody>
+    <tr><td><tt><font color="BLUE">4 4<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 1 1<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">1 2 7<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">1 3 3<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">2 3 4<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">4<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 2<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">0 3<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">2 1<br></font></tt></td></tr>
+    <tr><td><tt><font color="BLUE">3 1<br></font></tt></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">4</span></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">3</span></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">4</span></td></tr>
+    <tr><td><span style="font-family: Courier New,Courier,monospace;">3</span></td></tr>
+  </tbody>
+</table>
+
+  
+<br>
+
+<table>
+  <tbody>
+    <tr>
+      <td><i>Notas:</i></td>
+      <td>Textos em <font color="BLUE"><tt>azul</tt></font> designam dados de
+        entrada, isto é, que devem ser lidos pelo seu programa.</td>
+    </tr>
+    <tr>
+      <td><br>
+</td>
+      <td>Textos em <tt>preto</tt> designam dados de saída, ou seja, que devem
+        ser impressos pelo seu programa.</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<hr>
+
+
+<b>Observações gerais:</b> 
+<ul>
+  <li>O número máximo de submissões é 30.</li>  
+  <li>O seu programa deve estar completamente contido em um único arquivo denominado <tt>puzzle.c</tt> ou <tt>puzzle.cpp</tt>.<br>
+</li>  
+  
+  <li>Para a realização dos testes automáticos, a compilação se dará de uma das seguintes formas:<br>
+    <br>
+    <span style="font-family: Courier New,Courier,monospace;">gcc -Werror -pedantic -Wall -lm -o puzzle puzzle.c</span><br>
+    <span style="font-family: Courier New,Courier,monospace;">g++ -Werror -pedantic -Wall -lm -o puzzle puzzle.cpp</span><br style="font-family: Courier New,Courier,monospace;">
+    <br>
+  </li>
+  
+  <li>Não se esqueça de incluir no início do programa o seu nome e o seu RA.</li>
+  
+  
+</ul>
+<hr>
+<b>Critérios importantes:</b> <br>
+<br>
+Não deixe de ler esta seção porque poderá incluir informações extras sobre penalidades.
+
+<iframe src="enunc_arquivos/console.html" id="vimvixen-console-frame" class="vimvixen-console-frame"></iframe></body></html>
